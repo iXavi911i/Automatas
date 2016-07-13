@@ -1,9 +1,10 @@
 package AFN_AFD_ER;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class AFN extends javax.swing.JFrame {
-    public static AFD afd = new AFD();
+    //public static AFD afd = new AFD();
     private String alfabeto[];
     private int siguienteLineaAFD;
     private int cuentaLineasAFN;
@@ -311,25 +312,25 @@ public class AFN extends javax.swing.JFrame {
             //Verifica si el nuevo estado se ha incluido en la tabla AFN
             for (i=0; i<=(siguienteLineaAFD-1); i++) {
                 //if (tabelaTransicaoAFD.getValueAt(i,0).toString().equals(novoEstado))
-                if (afd.tablaAFD.getValueAt(i,0).toString().equals(estado) &&
-                    afd.tablaAFD.getValueAt(i,1).toString().equals(alfabeto[j]) &&
-                    afd.tablaAFD.getValueAt(i,2).toString().equals(nuevoEstado))
+                if (tablaTransicionesAFD.getValueAt(i,0).toString().equals(estado) &&
+                    tablaTransicionesAFD.getValueAt(i,1).toString().equals(alfabeto[j]) &&
+                    tablaTransicionesAFD.getValueAt(i,2).toString().equals(nuevoEstado))
                     break;
             }
             //Si nuevoEstado no ha sido incluido en la tabla del AFN, a continuación se incluye y se contruyen los nuevos estados
             if(i>(siguienteLineaAFD-1)) {
-                afd.tablaAFD.setValueAt(estado,siguienteLineaAFD,0);                  
-                afd.tablaAFD.setValueAt(alfabeto[j],siguienteLineaAFD,1);                  
-                afd.tablaAFD.setValueAt(nuevoEstado,siguienteLineaAFD,2);                  
+                tablaTransicionesAFD.setValueAt(estado,siguienteLineaAFD,0);                  
+                tablaTransicionesAFD.setValueAt(alfabeto[j],siguienteLineaAFD,1);                  
+                tablaTransicionesAFD.setValueAt(nuevoEstado,siguienteLineaAFD,2);                  
                 estadoFinal = estadoFinalAFN(nuevoEstado);
-                afd.tablaAFD.setValueAt(estadoFinal,siguienteLineaAFD,3);                  
+                tablaTransicionesAFD.setValueAt(estadoFinal,siguienteLineaAFD,3);                  
                 siguienteLineaAFD++;
                 
                      
                 crearEstados(nuevoEstado);
             }
         }
-        System.out.println(afd.tablaAFD.getRowCount());
+        System.out.println(tablaTransicionesAFD.getRowCount());
     }
     
     //Método que determina si un nuevo estado contiene al estado que se esta analizando, por ello se mandan dos estados
@@ -378,10 +379,10 @@ public class AFN extends javax.swing.JFrame {
         
         alfabeto = txtAlfabeto.getText().split(",");
         cuentaLineasAFD();
-        crearEstados(txtEstadoInicial.getText()); 
-        new AFD().show();
+        crearEstados(txtEstadoInicial.getText());
+        new AFD(tablaTransicionesAFD).show();
     }//GEN-LAST:event_convertirActionPerformed
-
+    
     private void txtAlfabetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlfabetoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAlfabetoActionPerformed
